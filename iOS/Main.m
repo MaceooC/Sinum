@@ -3,7 +3,7 @@
 #import <Foundation/Foundation.h>
 #import <objc/runtime.h>
 
-#define API_URL @"http://26.188.159.131:3551"
+#define API_URL @"http://132.164.1.68:3551"
 #define EPIC_GAMES_URL @"ol.epicgames.com"
 
 @interface CustomURLProtocol : NSURLProtocol
