@@ -1,27 +1,26 @@
-name: Build VANTA iOS libSinum
+name: Sinum Builder
+
 on:
-  workflow_dispatch:
   push:
-    paths:
-      - 'iOS/Main.m'
-      - '.github/workflows/build-ios-dylib.yml'
+    branches: [main]
+  workflow_dispatch:
+
 jobs:
-  build:
+  build-dylib:
     runs-on: macos-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Build arm64 iOS dylib
-        shell: bash
+
+      - name: Build iOS dylib
         run: |
+          cd ./iOS
           mkdir -p build
-          xcrun --sdk iphoneos clang -fobjc-arc -dynamiclib -arch arm64 \
-            -miphoneos-version-min=11.0 \
-            -install_name '@rpath/libSinum.dylib' \
-            iOS/Main.m -framework Foundation \
-            -o build/libSinum.dylib
-          file build/libSinum.dylib
-          shasum -a 256 build/libSinum.dylib
-      - uses: actions/upload-artifact@v4
+          xcrun -sdk iphoneos clang++ Main.m -dynamiclib -arch arm64 \
+            -o build/libSinum.dylib \
+            -framework Foundation -framework UIKit
+
+      - name: Upload dylib
+        uses: actions/upload-artifact@v4
         with:
-          name: VANTA-libSinum-arm64
-          path: build/libSinum.dylib
+          name: libSinum
+          path: iOS/build/libSinum.dylib
