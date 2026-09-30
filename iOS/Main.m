@@ -1,7 +1,7 @@
 #import <Foundation/Foundation.h> 
 #import <objc/runtime.h> 
  
-#define API_URL @"http://192.168.1.107:3551"
+#define API_URL @"http://vanta-api-zyko.duckdns.org:3551"
 #define EPIC_GAMES_URL @"ol.epicgames.com" 
  
 @interface CustomURLProtocol : NSURLProtocol 
